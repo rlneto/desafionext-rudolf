@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Vaga from "@/components/vaga"
+import Vaga from "@/components/Vaga"
 import { Montserrat, Press_Start_2P } from "next/font/google";
 
 const mont = Montserrat({ subsets: ["latin"]});

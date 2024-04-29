@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Montserrat, Press_Start_2P } from "next/font/google";
 import logoJojos from '@/public/icon.svg'
-import Burger from '@/components/burger'
+import Burger from '@/components/Burger'
 import "./globals.css";
 
 const mont = Montserrat({ subsets: ["latin"]});
@@ -53,7 +53,7 @@ export default function RootLayout({
           <div className="flex flex-row flex-grow overflow-y-auto">
                 {children}
           </div>
-          <div className="flex h-[100px] bg-[#023047] mt-auto text-white text-xl text-center items-center justify-center sticky bottom-0 w-full border-[#DFDFE4] border-t-[1px]">
+          <div className="flex h-[100px] bg-[#023047] mt-auto text-white text-sm md:text-xl text-center items-center justify-center sticky bottom-0 w-full border-[#DFDFE4] border-t-[1px]">
                 © JOJOS GAME STUDIO. ALL RIGHTS RESERVED
           </div>
         </body>
