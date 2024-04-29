@@ -28,7 +28,7 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-        <body className={`${mont.className} flex flex-col min-h-screen`}>
+        <body className={`${mont.className} flex flex-col min-h-screen w-screen`}>
           <div className={`px-[10px] md:px-[100px] py-[5px] md:py-[50px] bg-[#023047] md:h-[152px] w-screen flex items-center justify-between`}>
             <div className={'flex flex-col'}>
               <div className={'flex gap-[13.3px]'}>
@@ -50,10 +50,10 @@ export default function RootLayout({
                 <li ><Link href="/carreira"><button className={'text-[#023047] bg-[#FA8400] text-xl px-[20px] py-[10px] hover:bg-[#D16F00]'}>Carreira</button></Link></li>
             </ul>
           </div>
-          <div className="flex flex-row flex-grow">
+          <div className="flex flex-row flex-grow overflow-y-auto">
                 {children}
           </div>
-          <div className="flex h-[100px] bg-[#023047] mt-auto text-white text-xl text-center items-center justify-center">
+          <div className="flex h-[100px] bg-[#023047] mt-auto text-white text-xl text-center items-center justify-center sticky bottom-0 w-full border-[#DFDFE4] border-t-[1px]">
                 © JOJOS GAME STUDIO. ALL RIGHTS RESERVED
           </div>
         </body>

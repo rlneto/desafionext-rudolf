@@ -15,6 +15,12 @@ const config: Config = {
       },
     },
   },
+  variants: {
+    extend: {
+      textColor: ['group-hover'],
+      borderColor: ['group-hover'],
+    },
+  },
   plugins: [],
 };
 export default config;
