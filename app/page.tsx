@@ -1,12 +1,14 @@
 import Image from "next/image";
-import clsx from 'clsx';
+import { Montserrat, Press_Start_2P } from "next/font/google";
+
+const mont = Montserrat({ subsets: ["latin"]});
+const press = Press_Start_2P({ weight: ["400"], subsets: ["latin"] });
 
 export default function Home() {
-
-  const pepino: boolean = true;
-  const abacaxi: boolean = false;
+  
   return ( 
-  <div></div>
+  <div className={"flex flex-col bg-[#023047] min-h-full w-full my-auto mx-[100px]"}>
+
+  </div>
   );
-}
- 
+} 
