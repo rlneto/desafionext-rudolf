@@ -2,6 +2,7 @@
 import Image from "next/image";
 import { Montserrat, Press_Start_2P } from "next/font/google";
 import { useState, useRef } from 'react';
+import Modal from '@mui/material/Modal';
 import clsx from 'clsx';
 
 const mont = Montserrat({ subsets: ["latin"]});
@@ -11,18 +12,19 @@ const press = Press_Start_2P({ weight: ["400"], subsets: ["latin"] });
 
 
 export default function Carreira() {
-  const enviarCv = () => {
-
-  }
   /* Validação de campos cookie-cutter */
   
+  const nomeRef = useRef<HTMLInputElement>(null)
   const emailRef = useRef<HTMLInputElement>(null)
+  const portfolioRef = useRef<HTMLInputElement>(null)
+  const pqRef = useRef<HTMLTextAreaElement>(null)
+  
   const [emailError, setEmailError] = useState(false);
   const emailRegex = /\S+@\S+\.\S+/;
-
+  
   const validateEmail = () => {
     if(emailRef.current){
-        const email = emailRef.current.value;
+      const email = emailRef.current.value;
       if (!emailRegex.test(email)) {
         setEmailError(true);
         setTimeout(() => {
@@ -31,12 +33,26 @@ export default function Carreira() {
             emailRef.current.value = "";
           }
         }, 5000);
-
+        
       } else {
         setEmailError(false);
       }
     }
   };
+
+  const [open, setOpen] = useState(false);
+  const enviarCv = () => {
+/*     if(nomeRef.current && emailRef.current && portfolioRef.current && pqRef.current){
+      if(emailRegex.test(emailRef.current.value)){
+        console.log("Nome: ", nomeRef.current.value);
+        console.log("Email: ", emailRef.current.value);
+        console.log("Portfolio: ", portfolioRef.current.value);
+        console.log("Porque: ", pqRef.current.value);
+        setOpen(true);
+      }
+    } */
+    setOpen(true);
+  }
   return(
     <div className={`flex flex-col bg-[#023047] md:min-h-screen w-full items-center justify-stretch ${mont.className} gap-[30px]`}>
       <header className={`flex text-center flex-row justify-center align- ${press.className} text-[#FA8400] text-2xl md:text-4xl`}>
@@ -111,6 +127,21 @@ export default function Carreira() {
         </div>
       </div>
       <button onClick={enviarCv} className={'text-[#023047] bg-[#FA8400] text-xl px-[20px] py-[10px] hover:bg-[#D16F00]'}>Enviar Formulário</button>
+      <Modal
+        open={open}
+        onClose={() => setOpen(false)}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+        className="flex items-center justify-center"
+      >
+        <div
+          className="bg-white p-4 rounded shadow-xl"
+        >
+          <h2 id="modal-modal-title" className="text-xl font-bold mb-2">
+            Formulário enviado com sucesso!
+          </h2>
+        </div>
+      </Modal>
     </div>
   )
 }
