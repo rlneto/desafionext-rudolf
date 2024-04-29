@@ -28,8 +28,8 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-        <body className={`${mont.className} flex flex-col min-h-screen w-screen`}>
-          <div className={`px-[10px] md:px-[100px] py-[5px] md:py-[50px] bg-[#023047] md:h-[152px] w-screen flex items-center justify-between`}>
+        <body className={`${mont.className} flex flex-col min-h-screen w-screen max-w-full`}>
+          <div className={`px-[10px] md:px-[100px] py-[5px] md:py-[50px] bg-[#023047] md:h-[152px] w-screen flex items-center justify-between max-w-full`}>
             <div className={'flex flex-col'}>
               <div className={'flex gap-[13.3px]'}>
                 <Image src={logoJojos} width={48} height={40} alt='Ícone Jojos'/>
