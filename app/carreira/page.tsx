@@ -132,12 +132,12 @@ export default function Carreira() {
         onClose={() => setOpen(false)}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
-        className="flex items-center justify-center"
+        className="flex flex-col items-center justify-center border-none outline-none"
       >
         <div
-          className="bg-white p-4 rounded shadow-xl"
+          className="bg-[#DFDFE4] px-[58px] py-[44px] shadow-xl flex flex-row"
         >
-          <h2 id="modal-modal-title" className="text-xl font-bold mb-2">
+          <h2 id="modal-modal-title" className={ `${press.className} text-xl text-[#023047] font-bold`}>
             Formulário enviado com sucesso!
           </h2>
         </div>
