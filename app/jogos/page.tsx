@@ -1,7 +1,7 @@
 'use client';
 import Image from "next/image";
 import { Montserrat, Press_Start_2P } from "next/font/google";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 
 
@@ -11,14 +11,19 @@ const press = Press_Start_2P({ weight: ["400"], subsets: ["latin"] });
 
 const comebig = "/ccxl.png"
 const comesmall = "/ccsm.png"
-const cash: HTMLAudioElement = new Audio("/cash.mp3"); /* Licença: Creative Commons, url: https://www.free-stock-music.com/sound-effects-library-cash-register-sound.html */
 
 
 export default function Jogos() {
+  const [cash, setCash] = useState<HTMLAudioElement | null>(null);
   const [showMessage, setShowMessage] = useState(false);
 
+  useEffect(() => {
+    setCash(new Audio("/cash.mp3"));
+    /* Licença: Creative Commons, url: https://www.free-stock-music.com/sound-effects-library-cash-register-sound.html */
+  }, []);
+
   const cashIn = () => {
-    cash.play();
+    cash?.play();
     setShowMessage(true);
     setTimeout(() => setShowMessage(false), 2000);
   };
@@ -27,7 +32,7 @@ export default function Jogos() {
     <article className={`flex flex-row bg-[#023047] md:min-h-screen w-full justify-center ${mont.className}`}>
       <div className="flex flex-col gap-[20px] w-full md:max-w-[80%] px-1 md:px-0 items-center ">
         <header className={`flex flex-row justify-center ${press.className} text-[#FA8400] text-4xl`}>
-          Come-come
+          Come-Come
         </header>
         <Image src={comebig} width={1240} height={490} className="responsive md:flex flex-row hidden w-full" alt="Screenshot do come-come."/>
         <Image src={comesmall} className="md:hidden flex responsive" width={400} height={300} alt={`Thumbnail do come-come.`} />
