@@ -1,11 +1,7 @@
-import { PortableTextBlock } from "sanity";
-
 export type PostType = {
+  id: number;
   title: string;
-  author: {
-    _ref: string;
-    _type: 'reference';
-  };
+  author: string;
   publishedAt: string;
-  body: any;
+  body: string;
 };

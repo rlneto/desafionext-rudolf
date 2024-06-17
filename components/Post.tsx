@@ -18,7 +18,7 @@ export default function Post({ post, onPostClick }: PostProps): ReactElement {
   }
 
   return (
-    <article key={post.title} onClick={() => onPostClick(post)} className='max-w/[390px] max-h/[332px] gap/[11px] cursor-pointer'>
+    <article key={post.id} onClick={() => onPostClick(post)} className='max-w/[390px] max-h/[332px] gap/[11px] cursor-pointer'>
       <Image src='/blogthumb.png' width={610} height={339} alt='Blog Post' className="responsive max-w/full max-h/full" />
       <h2 className="text-2xl text-[#DFDFE4]">{post.title}</h2>
     </article>

@@ -17,8 +17,6 @@ export default function Blog({ postagens }: BlogProps) {
     console.log('Received postagens in Blog component:', postagens);
   }, [postagens]);
 
-  console.log('Initializing currentPost state with:', postagens && postagens.length > 0 ? postagens[0] : null);
-
   const [currentPost, setCurrentPost] = useState<PostType | null>(postagens && postagens.length > 0 ? postagens[0] : null);
 
   const changePostHandler = (post: PostType) => {
@@ -45,7 +43,7 @@ export default function Blog({ postagens }: BlogProps) {
             {currentPost.title}
           </h2>
           <sub className="flex flex-row flex-wrap text-[#DFDFE4] mb/[16px] text-sm">
-            Por {currentPost.author._ref}, {currentPost.publishedAt}
+            Por {currentPost.author}, {currentPost.publishedAt}
           </sub>
           <p className="flex flex-row flex-wrap text-[#DFDFE4] text-xl">
             {currentPost.body}
@@ -54,7 +52,7 @@ export default function Blog({ postagens }: BlogProps) {
       </article>
       <div className="flex flex-row flex-wrap gap/[35px] max-w/[1240px] flex-shrink-0 mb/[10vw]">
         {postagens.map((post: PostType) => (
-          <Post key={post.title} post={post} onPostClick={changePostHandler} />
+          <Post key={post.id} post={post} onPostClick={changePostHandler} />
         ))}
       </div>
     </div>
