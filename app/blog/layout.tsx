@@ -6,7 +6,7 @@ import { PostType } from '@/types';
 
 async function fetchPosts(): Promise<PostType[]> {
   console.log('Fetching posts from API...');
-  const res = await fetch('http://localhost:3000/api/posts');
+  const res = await fetch('/.netlify/functions/api/posts');
   if (!res.ok) {
     throw new Error('Failed to fetch posts');
   }
