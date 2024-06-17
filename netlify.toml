@@ -6,3 +6,14 @@
   from = "/*"
   to = "/index.html"
   status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+  force = true
+
+[functions]
+  directory = "netlify/functions"
+  external_node_modules = ["better-sqlite3"]

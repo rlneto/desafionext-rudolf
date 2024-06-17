@@ -20,12 +20,17 @@ export default function Carreira() {
     const title = titleRef.current?.value;
     const author = authorRef.current?.value;
     const body = contentRef.current?.value;
-  
+
+    console.log('Title:', title);
+    console.log('Author:', author);
+    console.log('Body:', body);
+
     if (!title || !author || !body) {
+      console.log('Validation failed');
       setErrorOpen(true);
       return;
     }
-  
+
     try {
       const response = await fetch('/.netlify/functions/api/posts', {
         method: 'POST',
@@ -34,10 +39,12 @@ export default function Carreira() {
         },
         body: JSON.stringify({ title, author, body }),
       });
-  
+
       if (response.ok) {
+        console.log('Post created successfully');
         setOpen(true);
       } else {
+        console.error('Failed to create post');
         setErrorOpen(true);
       }
     } catch (error) {
@@ -45,7 +52,6 @@ export default function Carreira() {
       setErrorOpen(true);
     }
   };
-  
 
   return (
     <div className={`flex flex-col bg-[#023047] md:min-h-full w-full items-center justify-stretch ${mont.className} gap-[30px]`}>
@@ -80,7 +86,7 @@ export default function Carreira() {
             </label>
           </div>
           <div className="flex flex-row">
-            <textarea name="content" ref={contentRef} id="formcontent" className="text-[#DFDFE4] border-[#DFDFE4] border-solid border-2 outline-none bg-[#023047] h-[177px] w-[90vw] md:w-[600px] p-3 hover:border-[#FA8400] focus:border-[#FA8400]" />
+            <textarea name="content" ref={contentRef} id="formcontent" className="text-[#DFDFE4] border-[#DFDFE4] border-solid border-2 outline-none bg-[#023047] h-[177px] w-[90vw] md:w-[900px] p-3 hover:border-[#FA8400] focus:border-[#FA8400]" />
           </div>
         </div>
       </div>
@@ -93,7 +99,7 @@ export default function Carreira() {
         aria-describedby="modal-modal-description"
         className="fixed inset-0 flex items-center justify-center"
       >
-        <div className="bg-[#DFDFE4] px-[58px] py-[44px] shadow-xl flex flex-col justify-center items-center max-w-[809px] max-h-[364px] w/full h/full gap-[12px]">
+        <div className="bg-[#DFDFE4] px-[58px] py-[44px] shadow-xl flex flex-col justify-center items-center max-w-[809px] max-h-[364px] w/full h/full gap/[12px]">
           <h2 id="modal-modal-title" className={`flex ${press.className} text-5xl text-center text-[#023047] font-bold`}>
             Postagem enviada com sucesso!
           </h2>
