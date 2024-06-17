@@ -20,21 +20,21 @@ export default function Carreira() {
     const title = titleRef.current?.value;
     const author = authorRef.current?.value;
     const body = contentRef.current?.value;
-
+  
     if (!title || !author || !body) {
       setErrorOpen(true);
       return;
     }
-
+  
     try {
-      const response = await fetch('/api/posts', {
+      const response = await fetch('/.netlify/functions/api/posts', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ title, author, body }),
       });
-
+  
       if (response.ok) {
         setOpen(true);
       } else {
@@ -45,6 +45,7 @@ export default function Carreira() {
       setErrorOpen(true);
     }
   };
+  
 
   return (
     <div className={`flex flex-col bg-[#023047] md:min-h-full w-full items-center justify-stretch ${mont.className} gap-[30px]`}>
