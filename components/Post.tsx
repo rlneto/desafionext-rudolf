@@ -3,17 +3,9 @@ import { ReactElement } from 'react';
 import Image from "next/image";
 import { Montserrat, Press_Start_2P } from "next/font/google";
 import { PostType } from '@/types';
-const mont = Montserrat({ subsets: ["latin"]});
+
+const mont = Montserrat({ subsets: ["latin"] });
 const press = Press_Start_2P({ weight: ["400"], subsets: ["latin"] });
-
-
-interface IPost {
-  _id: string;
-  title: string;
-  author: string;
-  date: string;
-  content: string;
-}
 
 interface PostProps {
   post: PostType;
@@ -26,9 +18,9 @@ export default function Post({ post, onPostClick }: PostProps): ReactElement {
   }
 
   return (
-      <article key={post.title} onClick={() => onPostClick(post)} className='max-w-[390px] max-h-[332px] gap-[11px]'>
-        <Image src='/blogthumb.png' width={610} height={339} alt='Blog Post' className="responsive max-w-full max-h-full"/>
-        <h2 className="text-2xl text-[#DFDFE4]">{post.title}</h2>
-      </article>
+    <article key={post.title} onClick={() => onPostClick(post)} className='max-w/[390px] max-h/[332px] gap/[11px] cursor-pointer'>
+      <Image src='/blogthumb.png' width={610} height={339} alt='Blog Post' className="responsive max-w/full max-h/full" />
+      <h2 className="text-2xl text-[#DFDFE4]">{post.title}</h2>
+    </article>
   );
 }

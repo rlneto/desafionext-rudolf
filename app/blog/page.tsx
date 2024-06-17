@@ -1,64 +1,62 @@
+'use client';
+import { useState, useEffect } from 'react';
 import Image from "next/image";
 import { Montserrat, Press_Start_2P } from "next/font/google";
-const mont = Montserrat({ subsets: ["latin"]});
-const press = Press_Start_2P({ weight: ["400"], subsets: ["latin"] });
-import { useState, useEffect } from 'react';
 import Post from '../../components/Post';
-import { PostModel } from '../../models/Post';
-import { getPost } from "@/sanity/sanity.query"
 import type { PostType } from "@/types";
-import { PortableText } from "next-sanity";
-import pseudodata from '../../db/posts' /* Tentei o sanity, o mongodb e o supadata e não consegui conectar diretamente a um bd, com o Next.js usando sua abstração para integrar não só a camada de views mas também os controllers, então fiz com esse mockup de dados. */
 
+const mont = Montserrat({ subsets: ["latin"] });
+const press = Press_Start_2P({ weight: ["400"], subsets: ["latin"] });
 
-
-interface IPost {
-  _id: string;
-  title: string;
-  author: string;
-  date: string;
-  content: string;
+interface BlogProps {
+  postagens: PostType[];
 }
 
+export default function Blog({ postagens }: BlogProps) {
+  useEffect(() => {
+    console.log('Received postagens in Blog component:', postagens);
+  }, [postagens]);
 
+  console.log('Initializing currentPost state with:', postagens && postagens.length > 0 ? postagens[0] : null);
 
-export default async function Blog() {
-  const postagens: PostType[] = await getPost();
-  const [posts, setPosts] = useState<PostType[]>(postagens);
-  const [currentPost, setCurrentpost] = useState<PostType>(postagens[0]);
+  const [currentPost, setCurrentPost] = useState<PostType | null>(postagens && postagens.length > 0 ? postagens[0] : null);
 
   const changePostHandler = (post: PostType) => {
-    setCurrentpost(post);
+    console.log('Changing current post to:', post);
+    setCurrentPost(post);
+  };
+
+  if (!postagens || postagens.length === 0 || !currentPost) {
+    console.log('No postagens or currentPost is null. Rendering loading...');
+    return <div>Loading...</div>;
   }
 
   return (
-    <div className={`flex flex-col bg-[#023047] md:min-h-full w-full items-center justify-stretch ${mont.className} gap-[30px] px-2 md:px-[100px]`}>
+    <div className={`flex flex-col bg-[#023047] md:min-h-full w/full items-center justify-stretch ${mont.className} gap/[30px] px-2 md:px/[100px]`}>
       <header className={`flex text-center flex-row justify-center align- ${press.className} text-[#FA8400] text-2xl md:text-4xl`}>
         BLOG
       </header>
-      <article className="flex flex-col md:flex-row w-full items-stretch justify-center md:max-w-[1240px] gap-[20px] max-h-full">
+      <article className="flex flex-col md:flex-row w/full items-stretch justify-center md:max-w/[1240px] gap/[20px] max-h/full">
         <div className="flex flex-row md:flex-col ">
-          <Image src='/blogpost.jpg' width={610} height={339} alt='Blog Post' className="responsive max-w-full max-h-full"/>
+          <Image src='/blogpost.jpg' width={610} height={339} alt='Blog Post' className="responsive max-w/full max-h/full" />
         </div>
-        <div className="flex flex-col w-full justify-evenly max-w-[590px]">
-          <h2 className="flex flex-row flex-wrap text-[#DFDFE4] text-[32px] font-bold mb-[16px]">
+        <div className="flex flex-col w/full justify-evenly max-w/[590px]">
+          <h2 className="flex flex-row flex-wrap text-[#DFDFE4] text/[32px] font-bold mb/[16px]">
             {currentPost.title}
           </h2>
-          <sub className="flex flex-row flex-wrap text-[#DFDFE4] mb-[16px] text-sm">
+          <sub className="flex flex-row flex-wrap text-[#DFDFE4] mb/[16px] text-sm">
             Por {currentPost.author._ref}, {currentPost.publishedAt}
           </sub>
           <p className="flex flex-row flex-wrap text-[#DFDFE4] text-xl">
             {currentPost.body}
           </p>
         </div>
-        
       </article>
-      <div className="flex flex-row flex-wrap gap-[35px] max-w-[1240px] flex-shrink-0 mb-[10vw]">
+      <div className="flex flex-row flex-wrap gap/[35px] max-w/[1240px] flex-shrink-0 mb/[10vw]">
         {postagens.map((post: PostType) => (
           <Post key={post.title} post={post} onPostClick={changePostHandler} />
         ))}
       </div>
     </div>
-
   );
 }
