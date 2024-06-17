@@ -1,5 +1,3 @@
-'use client';
-
 import Image from "next/image";
 import { Montserrat, Press_Start_2P } from "next/font/google";
 const mont = Montserrat({ subsets: ["latin"]});
@@ -7,6 +5,9 @@ const press = Press_Start_2P({ weight: ["400"], subsets: ["latin"] });
 import { useState, useEffect } from 'react';
 import Post from '../../components/Post';
 import { PostModel } from '../../models/Post';
+import { getPost } from "@/sanity/sanity.query"
+import type { PostType } from "@/types";
+import { PortableText } from "next-sanity";
 import pseudodata from '../../db/posts' /* Tentei o sanity, o mongodb e o supadata e não consegui conectar diretamente a um bd, com o Next.js usando sua abstração para integrar não só a camada de views mas também os controllers, então fiz com esse mockup de dados. */
 
 
@@ -21,11 +22,12 @@ interface IPost {
 
 
 
-const Blog = () => {
-  const [posts, setPosts] = useState<IPost[]>(pseudodata);
-  const [currentPost, setCurrentpost] = useState<IPost>(posts[0]);
+export default async function Blog() {
+  const postagens: PostType[] = await getPost();
+  const [posts, setPosts] = useState<PostType[]>(postagens);
+  const [currentPost, setCurrentpost] = useState<PostType>(postagens[0]);
 
-  const changePostHandler = (post: IPost) => {
+  const changePostHandler = (post: PostType) => {
     setCurrentpost(post);
   }
 
@@ -43,22 +45,20 @@ const Blog = () => {
             {currentPost.title}
           </h2>
           <sub className="flex flex-row flex-wrap text-[#DFDFE4] mb-[16px] text-sm">
-            Por {currentPost.author}, {currentPost.date}
+            Por {currentPost.author._ref}, {currentPost.publishedAt}
           </sub>
           <p className="flex flex-row flex-wrap text-[#DFDFE4] text-xl">
-            {currentPost.content}
+            {currentPost.body}
           </p>
         </div>
         
       </article>
       <div className="flex flex-row flex-wrap gap-[35px] max-w-[1240px] flex-shrink-0 mb-[10vw]">
-        {posts.map((post) => (
-          <Post key={post._id} post={post} onPostClick={changePostHandler} />
+        {postagens.map((post: PostType) => (
+          <Post key={post.title} post={post} onPostClick={changePostHandler} />
         ))}
       </div>
     </div>
 
   );
 }
-
-export default Blog;
