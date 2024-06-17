@@ -47,7 +47,7 @@ export default function RootLayout({
             <li><Link href="/jogos">Jogos</Link></li>
             <li><Link href="/">Sobre</Link></li>
             <li><Link href="/blog">Blog</Link></li>
-            <li><Link href="/carreira"><button className={'text-[#023047] bg-[#FA8400] text-xl px-[20px] py-[10px] hover:bg-[#D16F00]'}>Carreira</button></Link></li>
+            <li><Link href="/carreira"><button className={'text-[#023047] bg-[#FA8400] text-xl px-[20px] py-[10px] hover:bg-[#D16F00]'}>Postar</button></Link></li>
           </ul>
         </div>
         <div className="flex flex-row flex-grow overflow-y-auto">
