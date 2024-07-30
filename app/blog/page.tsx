@@ -20,14 +20,16 @@ const Blog = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
+        console.log('Fetching posts...');
         const data: IPost[] = await prisma.post.findMany();
+        console.log('Posts fetched:', data);
         setPosts(data);
         if (data.length > 0) {
           setCurrentPost(data[0]);
         }
       } catch (err) {
-        setError('Erro ao carregar posts');
-        console.error(err);
+        console.error('Error fetching posts:', err);
+        setError('Failed to load posts');
       }
     };
 
