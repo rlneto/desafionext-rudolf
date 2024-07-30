@@ -1,16 +1,12 @@
 'use client';
-import { ReactElement } from 'react';
-import Image from "next/image";
-import { Montserrat, Press_Start_2P } from "next/font/google";
-const mont = Montserrat({ subsets: ["latin"]});
-const press = Press_Start_2P({ weight: ["400"], subsets: ["latin"] });
 
+import type { ReactElement } from 'react';
 
 interface IPost {
-  _id: string;
+  id: number;
   title: string;
   author: string;
-  date: string;
+  date: Date;
   content: string;
 }
 
@@ -24,10 +20,23 @@ export default function Post({ post, onPostClick }: PostProps): ReactElement {
     return <div>No posts found</div>;
   }
 
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      onPostClick(post);
+    }
+  };
+
   return (
-      <article key={post._id} onClick={() => onPostClick(post)} className='max-w-[390px] max-h-[332px] gap-[11px]'>
-        <Image src='/blogthumb.png' width={610} height={339} alt='Blog Post' className="responsive max-w-full max-h-full"/>
-        <h2 className="text-2xl text-[#DFDFE4]">{post.title}</h2>
-      </article>
+    <div
+      key={post.id}
+      onClick={() => onPostClick(post)}
+      onKeyDown={handleKeyDown}
+      role="button"
+      tabIndex={0}
+      className="max-w-[390px] max-h-[332px] gap-[11px]"
+    >
+      <img src="/blogthumb.png" alt="Blog Post" className="responsive max-w-full max-h-full" />
+      <h2 className="text-2xl text-[#DFDFE4]">{post.title}</h2>
+    </div>
   );
 }
