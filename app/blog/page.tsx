@@ -15,22 +15,28 @@ interface IPost {
 const Blog = () => {
   const [posts, setPosts] = useState<IPost[]>([]);
   const [currentPost, setCurrentPost] = useState<IPost | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const data: IPost[] = await prisma.post.findMany();
-      setPosts(data);
-      if (data.length > 0) {
-        setCurrentPost(data[0]);
+      try {
+        const data: IPost[] = await prisma.post.findMany();
+        setPosts(data);
+        if (data.length > 0) {
+          setCurrentPost(data[0]);
+        }
+      } catch (err) {
+        setError('Erro ao carregar posts');
+        console.error(err);
       }
     };
 
     fetchPosts();
   }, []);
 
-  const changePostHandler = (post: IPost) => {
-    setCurrentPost(post);
-  };
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
   return (
     <div className="flex flex-col bg-[#023047] md:min-h-full w-full items-center justify-stretch gap-[30px] px-2 md:px-[100px]">
@@ -57,7 +63,7 @@ const Blog = () => {
       )}
       <div className="flex flex-row flex-wrap gap-[35px] max-w-[1240px] flex-shrink-0 mb-[10vw]">
         {posts.map((post) => (
-          <Post key={post.id} post={post} onPostClick={changePostHandler} />
+          <Post key={post.id} post={post} onPostClick={setCurrentPost} />
         ))}
       </div>
     </div>
