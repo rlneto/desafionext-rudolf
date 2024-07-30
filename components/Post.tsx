@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import type { ReactElement } from 'react';
 
 interface IPost {
@@ -35,7 +36,13 @@ export default function Post({ post, onPostClick }: PostProps): ReactElement {
       tabIndex={0}
       className="max-w-[390px] max-h-[332px] gap-[11px]"
     >
-      <img src="/blogthumb.png" alt="Blog Post" className="responsive max-w-full max-h-full" />
+      <Image
+        src="/blogthumb.png"
+        alt="Blog Post"
+        width={390}
+        height={332}
+        className="responsive max-w-full max-h-full"
+      />
       <h2 className="text-2xl text-[#DFDFE4]">{post.title}</h2>
     </div>
   );
